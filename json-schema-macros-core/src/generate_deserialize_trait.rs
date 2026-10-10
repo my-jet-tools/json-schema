@@ -67,6 +67,10 @@ pub fn generate_deserialize_trait(
                 let tp = items.get_token_stream();
                 match_cases.push(quote::quote! {
                     #prop_name_as_str =>{
+                         if __value.is_null() {
+                             return Err(format!("Value of `{}` cannot be null", #prop_name_as_str));
+                         }
+
                          if let Some(__value) = __value.as_raw_str() {
                              let __value: Vec<#tp> =
                             #crate_path::deserializer::deserialize_array(__value)?;
@@ -85,6 +89,11 @@ pub fn generate_deserialize_trait(
             _ => {
                 match_cases.push(quote::quote! {
                     #prop_name_as_str =>{
+                           // `as_raw_str` gives the text `null` for a null value, so it is checked separately
+                           if __value.is_null() {
+                                return Err(format!("Value of `{}` cannot be null", #prop_name_as_str));
+                           }
+
                            let Some(__value) = __value.as_raw_str() else {
                                 return Err(format!("Value of `{}` cannot be null", #prop_name_as_str));
                             };
