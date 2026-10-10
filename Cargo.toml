@@ -1,0 +1,3 @@
+[workspace]
+resolver = "3"
+members = ["json-schema", "json-schema-macros-core", "json-schema-macros"]

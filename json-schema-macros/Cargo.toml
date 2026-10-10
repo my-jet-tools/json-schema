@@ -1,0 +1,14 @@
+[package]
+name = "json-schema-macros"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+json-schema-macros-core = { path = "../json-schema-macros-core" }
+
+# Same syn major version as json-schema-macros-core: the parsed syn::DeriveInput is handed over to it
+syn = { version = "3", features = ["extra-traits"] }
+quote = "1"

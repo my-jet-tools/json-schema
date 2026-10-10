@@ -1,0 +1,13 @@
+[package]
+name = "json-schema-macros-core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+types-reader = { tag = "0.5.1", git = "https://github.com/MyJetTools/types-reader.git" }
+
+# Same syn major version as types-reader: its syn types and syn::Error are used here directly.
+# A wildcard lets cargo bind syn 2 from the user's Cargo.lock and the macro stops compiling.
+syn = { version = "3", features = ["extra-traits"] }
+quote = "1"
+proc-macro2 = "1"
